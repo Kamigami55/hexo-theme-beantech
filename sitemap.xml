@@ -3,7 +3,7 @@
 
     <sitemap>
         <loc>https://www.easonchang.com/post-sitemap.xml</loc>
-        <lastmod>2018-03-28T21:29:16.041Z</lastmod>
+        <lastmod>2018-03-28T23:45:01.822Z</lastmod>
     </sitemap>
 
     <sitemap>
@@ -12,8 +12,13 @@
     </sitemap>
 
     <sitemap>
+        <loc>https://www.easonchang.com/category-sitemap.xml</loc>
+        <lastmod>2018-03-28T23:43:52.467Z</lastmod>
+    </sitemap>
+
+    <sitemap>
         <loc>https://www.easonchang.com/tag-sitemap.xml</loc>
-        <lastmod>2018-03-28T20:49:39.179Z</lastmod>
+        <lastmod>2018-03-28T22:59:56.122Z</lastmod>
     </sitemap>
 
 </sitemapindex>

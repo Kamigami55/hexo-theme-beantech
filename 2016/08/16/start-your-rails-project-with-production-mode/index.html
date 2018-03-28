@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Let&#39;s make something awesome!">
+    <meta name="keyword"  content="Make, Code">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          使用Production Mode啟動你的rails專案 - Eason&#39;s Playground
+        
+    </title>
+
+    <link rel="canonical" href="https://www.easonchang.com/2016/08/16/start-your-rails-project-with-production-mode/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('https://imgur.com/a21E49E.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Rails" title="Rails">Rails</a>
+                            
+                              <a class="tag" href="/tags/#Tutorial" title="Tutorial">Tutorial</a>
+                            
+                        </div>
+                        <h1>使用Production Mode啟動你的rails專案</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Eason Chang on
+                            2016-08-16
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Eason&#39;s Playground</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1><span id="quick-reference">Quick Reference:</span></h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ RAILS_ENV=production rake db:migrate</span><br><span class="line">$ rake secret //產生secret key</span><br><span class="line">$ <span class="built_in">export</span> SECRET_KEY_BASE=[貼入上個指令產生出來的密鑰]</span><br><span class="line">$ vim config/initializers/assets.rb  //加入用到的assets路徑</span><br><span class="line">確認各處引用assets的方法正確</span><br><span class="line">$ RAILS_ENV=production rake assets:precompile</span><br><span class="line">$ vim config/environments/production.rb  //將這行改成<span class="literal">true</span>: config.serve_static_assets = <span class="literal">true</span></span><br><span class="line">$ rails s -e production</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<hr>
+<h1><span id="什麼是production模式為什麼要用它">什麼是production模式？為什麼要用它？</span></h1>
+<p>在通常情況下，直接在你的專案裡下<code>$ rails s</code>這條指令，我們是使用development mode來啟動你的專案</p>
+<p>在development模式下，大部分的修改都會直接顯現在網頁上，方便開發</p>
+<p>但實際讓系統上線，我們不會使用development模式，而是<strong>production模式</strong></p>
+<p>在production模式裡，rails會將assets預編譯在一起(pre-compile)，並放在public/資料夾底下以供存取，這能<strong>增進網站效能</strong></p>
+<h1><span id="使用production-mode啟動rails專案">使用production mode啟動rails專案</span></h1>
+<h2><span id="0migrate你的資料庫">0.migrate你的資料庫</span></h2>
+<p>production mode和development mode的資料庫是分開的，所以你需要再migrate一次</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ RAILS_ENV=production rake db:migrate</span><br></pre></td></tr></table></figure>
+<h2><span id="1修改configsecretyml設定production-mode的secret_key_base">1.修改config/secret.yml，設定production mode的secret_key_base</span></h2>
+<p>要順利運行rails程式，你需要設定一個叫<strong>secret_key_base</strong>的東西，它是rails用來認證瀏覽器cookie的一串密鑰。rails已經幫你在development mode和test mode設定好了，但production mode沒有，你得自己來，它的設定在<strong>config/secret.yml</strong>這隻檔案，讓我們來看看它：</p>
+<figure class="highlight c"><figcaption><span>secret.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// development mode的設定</span></span><br><span class="line"><span class="comment">// 它使用 b1f4eb...3a9 這串密鑰（隨機生成的）</span></span><br><span class="line">development:</span><br><span class="line">  secret_key_base: b1f4eb6c1d97f627fbc0a3919fc27ab5f831200cdd0ea72317f404a2b9d878192bca27d92380f56051c60d0a364c86fe53d9b9866d487a17cf06582a783723a9</span><br><span class="line"></span><br><span class="line"><span class="comment">// test mode使用 fe9d...c3b 這串密鑰</span></span><br><span class="line">test:</span><br><span class="line">  secret_key_base: fe9d49b7edc8e3a4dfa47c0682974aca4572388e929ea3e4f037b3e8841747fc3029e030bbd102a62d372596b4d753dd0c419b7425a8dcceca3817cf7d5dbc3b</span><br><span class="line"></span><br><span class="line"><span class="comment">// production mode從執行環境裡抓 $SECRET_KEY_BASE 這個環境變數當作密鑰，但正常情況下該變數並不存在，所以出錯</span></span><br><span class="line">production:</span><br><span class="line">  secret_key_base: &lt;%= ENV[<span class="string">"SECRET_KEY_BASE"</span>] %&gt;</span><br></pre></td></tr></table></figure>
+<p>你有兩種方法能設定production mode的secret_key_base</p>
+<h3><span id="1比較簡易的做法是直接寫死一串固定的密鑰給它">(1)比較簡易的做法是直接寫死一串固定的密鑰給它：</span></h3>
+<figure class="highlight c"><figcaption><span>secret.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前略...</span></span><br><span class="line"></span><br><span class="line">production:</span><br><span class="line"><span class="comment">// 刪掉原本的 &lt;%= ... %&gt; ，替換成隨便一串長度30以上的英數組合字串給他當密鑰</span></span><br><span class="line">	secret_key_base: iameasonchangiamhandsomeiamthekingoftheworldnoonecandefeatmeiwantagirlfriendiamaloserqq</span><br></pre></td></tr></table></figure>
+<h3><span id="2更安全的做法是把密鑰設在執行環境中">(2)更安全的做法是把密鑰設在執行環境中：</span></h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ rake secret // 生成一串密鑰，顯示在終端機上</span><br><span class="line">$ <span class="built_in">export</span> SECRET_KEY_BASE=[此處貼上你剛剛產生的密鑰] // 把密鑰設定至環境變數 <span class="variable">$SECRET_KEY_BASE</span></span><br></pre></td></tr></table></figure>
+<p>但只做到這樣的話，重開終端機的話環境變數設定就消失了，所以可以把設定寫進環境設定檔裡頭</p>
+<p>像我使用zsh的話，環境設定檔是**./.zshrc**<br>
+而Mac的terminal預設的bash，則是**./.bash_profile**</p>
+<figure class="highlight bash"><figcaption><span>.zshrc</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 在.zshrc中插入下面這行</span><br><span class="line"><span class="built_in">export</span> SECRET_KEY_BASE=[此處貼上你剛剛產生的密鑰]</span><br></pre></td></tr></table></figure>
+<p>到此你應該可以無錯誤地使用production mode開啟你的rails專案了，你可以下<code>$ rails s -e production</code>來開啟伺服器，並且用瀏覽器連至<code>localhost:3000</code>查看目前的結果</p>
+<p>你的畫面應該跟我很像，怎麼醜不拉幾的？我不眠不休設計出來的精美網頁呢？</p>
+<p><img src="https://i.imgur.com/oVAdVyK.png?2" alt="Imgur"></p>
+<p>那是因為你還沒有告訴rails你用到了哪些設計元素，接下來的步驟教你怎麼做：</p>
+<h2><span id="2告訴rails你有哪些assets需要被pre-compile">2.告訴rails你有哪些assets需要被pre-compile</span></h2>
+<p>前面我們提過，使用production mode的理由是<strong>增進網頁讀取效能</strong>，方法是<strong>預編譯(pre-compile)各類assets</strong>，而你需要手動告訴rails你有哪些assets需要預編譯，除了圖檔，所有使用到的assets都需要加入裡頭，如js、css檔</p>
+<p>方法是更新<strong>config/initializers/assets.rb</strong>這隻檔案，加入你有使用到的assets的路徑：</p>
+<figure class="highlight c++"><figcaption><span>assets.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前略...</span></span><br><span class="line"><span class="comment">// 後面加入這一行，裡頭放入你要precompile的檔案</span></span><br><span class="line">Rails.application.config.assets.precompile += [</span><br><span class="line">  'bootstrap.js', // 請幫我compile vendor/assets/javascripts/bootstrap.js 這支檔案</span><br><span class="line">	'courses/content.js', // 還有 app/assets/javascripts/courses/content.js</span><br><span class="line">	'courses/chart.js',  // app/assets/javascripts/courses/chart.js 也要</span><br><span class="line">	'new-index.css', // 還有這個css，它在app/assets/stylesheets/new-index.css.scss</span><br><span class="line">	'login.css', // app/assets/stylesheets/login.css.erb也要</span><br><span class="line">	'newcomer/*.css', // app/assets/stylesheets/newcomer/裡面的css檔都要！</span><br><span class="line">	'NotoSans-Regular-ttf' // 這個是字形檔唷！它在app/assets/fonts/NotoSans-Regular-ttf</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>rails會去 <strong>app/assets/</strong> 和 <strong>vendor/assets/</strong> 這兩個資料夾去找你的assets檔案，並且會根據副檔名尋找對應的路徑：</p>
+<ul>
+<li>js檔會去找底下的 <strong>javascripts/</strong></li>
+<li>css檔會去找底下的 <strong>stylesheets/</strong></li>
+<li>font檔會去找底下的 <strong>fonts/</strong></li>
+<li>image檔會去找底下的 <strong>images/</strong></li>
+</ul>
+<p>但rails預設會幫你compile所有的圖檔，所以**.png、.jpg等圖檔就不用加進去**了</p>
+<h2><span id="3確認你引入assets的方法有沒有誤">3.確認你引入assets的方法有沒有誤</span></h2>
+<p>compile後的assets，檔名會改變，所以傳統引入assets的方法會失效，必須改用rails提供的方法</p>
+<ul>
+<li>引入js檔使用 <code>&lt;%= javascript_include_tag 'your-js-path' %&gt;</code></li>
+<li>引入css檔使用 <code>&lt;%= stylesheet_link_tag 'your-css-path' %&gt;</code></li>
+<li>引入圖檔使用 <code>&lt;%= image_tag 'your-image-path' %&gt;</code></li>
+<li>js檔裡要再引入asset請使用 <code>&lt;%= asset_path('your-img-path') %&gt;</code></li>
+</ul>
+<h2><span id="4pre-compile-it">4.Pre-compile it!</span></h2>
+<p>在你的專案目錄裡下指令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ RAILS_ENV=production rake assets:precompile</span><br></pre></td></tr></table></figure>
+<p>就會將assets pre-compile進/public/assets裡頭</p>
+<h2><span id="5修改production的模式設定">5.修改production的模式設定</span></h2>
+<p>雖然compile了，但production模式預設是不會讓使用者讀取/public/assets的檔案</p>
+<p>必須修改 <strong>config/environments/production.rb</strong> 這個檔案</p>
+<p>將位在第24行左右的</p>
+<figure class="highlight ruby"><figcaption><span>production.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.serve_static_assets = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>改為 <strong>true</strong>:</p>
+<figure class="highlight ruby"><figcaption><span>production.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.serve_static_assets = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h2><span id="6使用production-mode啟動吧">6.使用production mode啟動吧!!</span></h2>
+<p>在專案的目錄裡下指令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rails s -e production</span><br></pre></td></tr></table></figure>
+<p>就可以使用production mode開啟你的rails專案啦！</p>
+<p>使用瀏覽器連入<code>localhost:3000</code>，就可以看到你速度大幅提升的美麗網頁啦！</p>
+<p><img src="https://imgur.com/IGxS4QM.jpg" alt="imgur"></p>
+<hr>
+<p>測試環境：</p>
+<ul>
+<li>OS: Mac OS X</li>
+<li>Rails version: 4.2.6</li>
+<li>Ruby version: 2.0.0p481</li>
+<li>Shell: zsh</li>
+</ul>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/08/18/using-ssh-with-putty-key-on-macos/" data-toggle="tooltip" data-placement="top" title="在MacOS使用putty Key進行ssh連線">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/05/10/dailyui-003-landing-page/" data-toggle="tooltip" data-placement="top" title="【DailyUI #003】Landing Page">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Quick Reference:</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">什麼是production模式？為什麼要用它？</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">使用production mode啟動rails專案</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">0.migrate你的資料庫</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">1.修改config/secret.yml，設定production mode的secret_key_base</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.2.1.</span> <span class="toc-nav-text">(1)比較簡易的做法是直接寫死一串固定的密鑰給它：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.2.2.</span> <span class="toc-nav-text">(2)更安全的做法是把密鑰設在執行環境中：</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">2.告訴rails你有哪些assets需要被pre-compile</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.4.</span> <span class="toc-nav-text">3.確認你引入assets的方法有沒有誤</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.5.</span> <span class="toc-nav-text">4.Pre-compile it!</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.6.</span> <span class="toc-nav-text">5.修改production的模式設定</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.7.</span> <span class="toc-nav-text">6.使用production mode啟動吧!!</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Rails" title="Rails">Rails</a>
+                        
+                          <a class="tag" href="/tags/#Tutorial" title="Tutorial">Tutorial</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">It Helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "eason-playground";
+    var disqus_identifier = "https://www.easonchang.com/2016/08/16/start-your-rails-project-with-production-mode/";
+    var disqus_url = "https://www.easonchang.com/2016/08/16/start-your-rails-project-with-production-mode/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/eason.blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/Kamigami55">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/easonchang101">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Eason Chang 2018 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://www.easonchang.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-73788598-2';
+    var _gaDomain = 'www.easonchang.com';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://www.easonchang.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

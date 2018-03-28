@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Let&#39;s make something awesome!">
+    <meta name="keyword"  content="Make, Code">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          【100sites #011】LifeGame，生命遊戲模擬無限的可能性 - Eason&#39;s Playground
+        
+    </title>
+
+    <link rel="canonical" href="https://www.easonchang.com/2016/03/28/100sites-011-lifegame/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('https://i.imgur.com/pZmuBeF.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Project" title="Project">Project</a>
+                            
+                              <a class="tag" href="/tags/#100sites" title="100sites">100sites</a>
+                            
+                              <a class="tag" href="/tags/#P5js" title="P5js">P5js</a>
+                            
+                              <a class="tag" href="/tags/#LifeGame" title="LifeGame">LifeGame</a>
+                            
+                        </div>
+                        <h1>【100sites #011】LifeGame，生命遊戲模擬無限的可能性</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Eason Chang on
+                            2016-03-28
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Eason&#39;s Playground</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1><span id="lifegame生命遊戲模擬無限的可能性">LifeGame，生命遊戲模擬無限的可能性</span></h1>
+<p><a href="http://kamigami55.github.io/100sites/011_LifeGame/" target="_blank" rel="noopener">點我玩生命遊戲線上demo</a></p>
+<p><a href="https://github.com/Kamigami55/100sites/tree/gh-pages/011_LifeGame" target="_blank" rel="noopener">點我查看Github原始碼</a></p>
+<ul>
+<li>ENTER：暫停</li>
+<li>滑鼠左鍵：放置或刪除細胞</li>
+</ul>
+<a id="more"></a>
+<p><img src="https://i.imgur.com/pZmuBeF.jpg" alt="螢幕快照 2016-03-27 上午12.35.39.png"></p>
+<h2><span id="什麼是生命遊戲">什麼是生命遊戲？</span></h2>
+<p><a href="https://zh.wikipedia.org/wiki/%E5%BA%B7%E5%A8%81%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F" target="_blank" rel="noopener">生命遊戲</a>，是由英國數學家<a href="https://zh.wikipedia.org/wiki/%E7%B4%84%E7%BF%B0%C2%B7%E4%BD%95%E9%A0%93%C2%B7%E5%BA%B7%E5%A8%81" target="_blank" rel="noopener">John Horton Conway</a>研發的一套<a href="https://zh.wikipedia.org/wiki/%E7%B4%B0%E8%83%9E%E8%87%AA%E5%8B%95%E6%A9%9F" target="_blank" rel="noopener">細胞自動機</a>模型，地圖中每個細胞會根據周圍8格細胞的狀態來決定自身的存亡，詳細規則如下：（摘錄自<a href="https://zh.wikipedia.org/wiki/%E5%BA%B7%E5%A8%81%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F" target="_blank" rel="noopener">維基百科</a>）</p>
+<!-- more -->
+<ol>
+<li>當前細胞為存活狀態時，當周圍低於 2 個（不包含 2 個）存活細胞時，該細胞變成死亡狀態。（模擬生命數量稀少）</li>
+<li>當前細胞為存活狀態時，當周圍有 2 個或 3 個存活細胞時，該細胞保持原樣。</li>
+<li>當前細胞為存活狀態時，當周圍有 3 個以上（不包含 3 個）的存活細胞時，該細胞變成死亡狀態。（模擬生命數量過多）</li>
+<li>當前細胞為死亡狀態時，當周圍有 3 個存活細胞時，該細胞變成存活狀態。 （模擬繁殖）</li>
+</ol>
+<p>僅僅這4條規則，就可以建構出一個複雜而美妙的生物遊戲世界。我們可以找到一些特殊形狀的生物單位，他們會表現出一些有趣的行為模式。</p>
+<p>三種經典的特殊生物單位：<br>
+<img src="https://i.imgur.com/tCVC0LI.jpg" alt="螢幕快照 2016-03-28 上午11.36.59.png"></p>
+<ul>
+<li>左邊的Blinker(信號燈)會以特定週期變化</li>
+<li>中間的Spaceship(太空船)會往右下角移動（你也可以設計出往其他方向移動的船)</li>
+<li>右邊的Beehive(蜂窩)則會保持靜止</li>
+</ul>
+<h2><span id="今天的lifegame">今天的LifeGame</span></h2>
+<p>而在今天的LifeGame裡頭，我已經為你在左上角放置一個Blinker了，剩下的空間，就交給你來創造無限的可能性了！</p>
+<p>今天的程式碼：</p>
+<figure class="highlight html"><figcaption><span>index.html</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset-</span>"<span class="attr">UTF-8</span>"&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>LifeGame<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"style.css"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.23/p5.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.23/addons/p5.dom.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"lifegame.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><figcaption><span>style.css</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>lifegame.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> SIZE = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> oldMap = [],</span><br><span class="line">    newMap = [],</span><br><span class="line">    num_x = <span class="number">0</span>,</span><br><span class="line">    num_y = <span class="number">0</span>,</span><br><span class="line">    paused = <span class="literal">false</span>,</span><br><span class="line">    frameCount = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> pauseButton;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  createCanvas(windowWidth, windowHeight);</span><br><span class="line">  frameRate(<span class="number">30</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// init map</span></span><br><span class="line">  num_x = windowWidth / SIZE;</span><br><span class="line">  num_y = windowHeight / SIZE;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; num_x; ++i) &#123;</span><br><span class="line">    oldMap.push([]);</span><br><span class="line">    newMap.push([]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; num_y; ++j) &#123;</span><br><span class="line">      oldMap[i].push(<span class="literal">false</span>);</span><br><span class="line">      newMap[i].push(<span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  loadDefaultMap();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// init pause button</span></span><br><span class="line">  pauseButton = createButton(<span class="string">'Pause'</span>);</span><br><span class="line">  pauseButton.size(<span class="number">80</span>, <span class="number">30</span>);</span><br><span class="line">  pauseButton.position(windowWidth/<span class="number">2</span><span class="number">-40</span>, windowHeight<span class="number">-40</span>);</span><br><span class="line">  pauseButton.mousePressed(togglePauseSimulate);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// fresh map every 5 frames</span></span><br><span class="line">  <span class="keyword">if</span> (!paused) &#123;</span><br><span class="line">    <span class="keyword">if</span> (frameCount%<span class="number">5</span> == <span class="number">0</span>) &#123;</span><br><span class="line">      freshMap();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// increase frame count</span></span><br><span class="line">  ++frameCount;</span><br><span class="line">  <span class="keyword">if</span> (frameCount &gt;= <span class="number">30</span>) &#123;</span><br><span class="line">    frameCount = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  drawMap();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// default map: a blink unit at top left corner</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadDefaultMap</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  oldMap[<span class="number">1</span>][<span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">  oldMap[<span class="number">1</span>][<span class="number">2</span>] = <span class="literal">true</span>;</span><br><span class="line">  oldMap[<span class="number">1</span>][<span class="number">3</span>] = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">drawMap</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  background(<span class="number">0</span>);</span><br><span class="line">  <span class="comment">// draw grid</span></span><br><span class="line">  stroke(<span class="number">30</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; num_x; ++i) &#123;</span><br><span class="line">    line(i*SIZE, <span class="number">0</span>, i*SIZE, windowHeight);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; num_y; ++i) &#123;</span><br><span class="line">    line(<span class="number">0</span>, i*SIZE, windowWidth, i*SIZE);</span><br><span class="line">  &#125;</span><br><span class="line">  fill(<span class="number">255</span>);</span><br><span class="line">  <span class="comment">// draw cells</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; num_x; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; num_y; ++j) &#123;</span><br><span class="line">      <span class="keyword">if</span> (oldMap[i][j]) &#123;</span><br><span class="line">        rect(i*SIZE, j*SIZE, SIZE, SIZE);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// draw mouse cell</span></span><br><span class="line">  fill(color(<span class="string">'rgba(100,100,100,0.5)'</span>));</span><br><span class="line">  <span class="keyword">var</span> mouseCellX = int(mouseX / SIZE);</span><br><span class="line">  <span class="keyword">var</span> mouseCellY = int(mouseY / SIZE);</span><br><span class="line">  rect(mouseCellX*SIZE, mouseCellY*SIZE, SIZE, SIZE);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// press ENTER to pause simulate</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">keyPressed</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (keyCode == ENTER) &#123;</span><br><span class="line">    togglePauseSimulate();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// press mouse to add or remove cell</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mousePressed</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> mouseCellX = int(mouseX / SIZE);</span><br><span class="line">  <span class="keyword">var</span> mouseCellY = int(mouseY / SIZE);</span><br><span class="line">  oldMap[mouseCellX][mouseCellY] = !oldMap[mouseCellX][mouseCellY]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">togglePauseSimulate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (paused) &#123;</span><br><span class="line">    paused = <span class="literal">false</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    paused = <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// count how many neighbors there are of a cell</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">neighbors</span>(<span class="params">xpos, ypos</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> total = <span class="number">0</span>;</span><br><span class="line">  <span class="comment">// four corners</span></span><br><span class="line">  <span class="keyword">if</span> (xpos != <span class="number">0</span> &amp;&amp; ypos != <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (oldMap[xpos<span class="number">-1</span>][ypos<span class="number">-1</span>]) &#123;</span><br><span class="line">      ++total;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (xpos != <span class="number">0</span> &amp;&amp; ypos != num_y<span class="number">-1</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (oldMap[xpos<span class="number">-1</span>][ypos+<span class="number">1</span>]) &#123;</span><br><span class="line">      ++total;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (xpos != num_x<span class="number">-1</span> &amp;&amp; ypos != <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (oldMap[xpos+<span class="number">1</span>][ypos<span class="number">-1</span>]) &#123;</span><br><span class="line">      ++total;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (xpos != num_x<span class="number">-1</span> &amp;&amp; ypos != num_y<span class="number">-1</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (oldMap[xpos+<span class="number">1</span>][ypos+<span class="number">1</span>]) &#123;</span><br><span class="line">      ++total;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// left and right</span></span><br><span class="line">  <span class="keyword">if</span> (xpos != <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (oldMap[xpos<span class="number">-1</span>][ypos]) &#123;</span><br><span class="line">      ++total;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (xpos != num_x<span class="number">-1</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (oldMap[xpos+<span class="number">1</span>][ypos]) &#123;</span><br><span class="line">      ++total;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (ypos != <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (oldMap[xpos][ypos<span class="number">-1</span>]) &#123;</span><br><span class="line">      ++total;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (ypos != num_y<span class="number">-1</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (oldMap[xpos][ypos+<span class="number">1</span>]) &#123;</span><br><span class="line">      ++total;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> total;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// calculate the next map according to the Life Game rule</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">freshMap</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; num_x; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; num_y; ++j) &#123;</span><br><span class="line">      <span class="keyword">var</span> neighbor_count = neighbors(i, j);</span><br><span class="line">      <span class="keyword">if</span> (neighbor_count &lt;= <span class="number">1</span> || neighbor_count &gt;= <span class="number">4</span>) &#123;</span><br><span class="line">        newMap[i][j] = <span class="literal">false</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (neighbor_count === <span class="number">2</span>) &#123;</span><br><span class="line">        newMap[i][j] = oldMap[i][j];</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123; <span class="comment">// neighbor_count === 3</span></span><br><span class="line">        newMap[i][j] = <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; num_x; ++i) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; num_y; ++j) &#123;</span><br><span class="line">      oldMap[i][j] = newMap[i][j];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/04/16/10-keys-of-elon-musk/" data-toggle="tooltip" data-placement="top" title="【閱讀筆記】從《他是玩真的！》汲取鋼鐵人Elon Musk創造未來的關鍵能力">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/03/25/100sites-010-piano/" data-toggle="tooltip" data-placement="top" title="【100sites #010】Piano，用P5js的sound函式庫實作虛擬鋼琴">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">LifeGame，生命遊戲模擬無限的可能性</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">什麼是生命遊戲？</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">今天的LifeGame</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Project" title="Project">Project</a>
+                        
+                          <a class="tag" href="/tags/#100sites" title="100sites">100sites</a>
+                        
+                          <a class="tag" href="/tags/#P5js" title="P5js">P5js</a>
+                        
+                          <a class="tag" href="/tags/#LifeGame" title="LifeGame">LifeGame</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">It Helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "eason-playground";
+    var disqus_identifier = "https://www.easonchang.com/2016/03/28/100sites-011-lifegame/";
+    var disqus_url = "https://www.easonchang.com/2016/03/28/100sites-011-lifegame/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/eason.blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/Kamigami55">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/easonchang101">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Eason Chang 2018 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://www.easonchang.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-73788598-2';
+    var _gaDomain = 'www.easonchang.com';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://www.easonchang.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

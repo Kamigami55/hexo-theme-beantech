@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Let&#39;s make something awesome!">
+    <meta name="keyword"  content="Make, Code">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          【100sites #010】Piano，用P5js的sound函式庫實作虛擬鋼琴 - Eason&#39;s Playground
+        
+    </title>
+
+    <link rel="canonical" href="https://www.easonchang.com/2016/03/25/100sites-010-piano/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('https://i.imgur.com/8aBbIhk.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Project" title="Project">Project</a>
+                            
+                              <a class="tag" href="/tags/#100sites" title="100sites">100sites</a>
+                            
+                              <a class="tag" href="/tags/#P5js" title="P5js">P5js</a>
+                            
+                        </div>
+                        <h1>【100sites #010】Piano，用P5js的sound函式庫實作虛擬鋼琴</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Eason Chang on
+                            2016-03-25
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Eason&#39;s Playground</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1><span id="piano用p5js的sound函式庫實作虛擬鋼琴">Piano，用P5js的sound函式庫實作虛擬鋼琴</span></h1>
+<p><a href="http://kamigami55.github.io/100sites/010_Piano/" target="_blank" rel="noopener">點我玩線上Demo</a></p>
+<p><a href="https://github.com/Kamigami55/100sites/tree/gh-pages/010_Piano" target="_blank" rel="noopener">點我查看程式碼</a></p>
+<a id="more"></a>
+<p><img src="https://i.imgur.com/8aBbIhk.jpg" alt="螢幕快照 2016-03-26 上午1.18.01.png"></p>
+<p>要營造出好氣氛，一定要有適合的音樂，於是今天我想要玩音樂，所以就研究了一下<a href="http://p5js.org/" target="_blank" rel="noopener">P5.js</a>的<a href="http://p5js.org/reference/#/libraries/p5.sound" target="_blank" rel="noopener">sound</a>函式庫，做出了今天的Piano虛擬鋼琴。</p>
+<p>這個函式庫有不少功能可以使用，播音錄音波型轉換都可以做到，今天的Piano使用了sine函數的oscillator製造聲音，再用FFT.analyze()來顯示波形。</p>
+<p>本次的程式碼：</p>
+<figure class="highlight html"><figcaption><span>index.html</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset-</span>"<span class="attr">UTF-8</span>"&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Piano<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"style.css"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.23/p5.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"p5.sound.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"piano.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><figcaption><span>style.css</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>piano.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> attackLevel = <span class="number">2.0</span>;</span><br><span class="line"><span class="keyword">var</span> releaseLevel = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> attackTime = <span class="number">0.001</span>;</span><br><span class="line"><span class="keyword">var</span> decayTime = <span class="number">0.2</span>;</span><br><span class="line"><span class="keyword">var</span> susPercent = <span class="number">0.2</span>;</span><br><span class="line"><span class="keyword">var</span> releaseTime = <span class="number">0.5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> env, triOsc;</span><br><span class="line"><span class="keyword">var</span> notePressed = [<span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>];</span><br><span class="line"><span class="keyword">var</span> fft;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  createCanvas(windowWidth, windowHeight);</span><br><span class="line"></span><br><span class="line">  textAlign(CENTER);</span><br><span class="line">  textSize(<span class="number">40</span>);</span><br><span class="line"></span><br><span class="line">  env = <span class="keyword">new</span> p5.Env();</span><br><span class="line">  env.setADSR(attackTime, decayTime, susPercent, releaseTime);</span><br><span class="line">  env.setRange(attackLevel, releaseLevel);</span><br><span class="line"></span><br><span class="line">  triOsc = <span class="keyword">new</span> p5.Oscillator(<span class="string">'sine'</span>);</span><br><span class="line">  triOsc.amp(env);</span><br><span class="line">  triOsc.start();</span><br><span class="line"></span><br><span class="line">  ellipseMode(CENTER);</span><br><span class="line">  strokeWeight(<span class="number">2</span>);</span><br><span class="line">  rectMode(CENTER);</span><br><span class="line">  </span><br><span class="line">  fft = <span class="keyword">new</span> p5.FFT();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  background(<span class="number">200</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// title</span></span><br><span class="line">  fill(<span class="number">255</span>);  </span><br><span class="line">  strokeWeight(<span class="number">5</span>);</span><br><span class="line">  textSize(<span class="number">120</span>);</span><br><span class="line">  textFont(<span class="string">"Georgia"</span>);</span><br><span class="line">  text(<span class="string">"PIANO"</span>, width/<span class="number">2</span>, <span class="number">150</span>);</span><br><span class="line">  textFont(<span class="string">"Normal"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// spectrum </span></span><br><span class="line">  <span class="keyword">var</span> spectrum = fft.analyze(); </span><br><span class="line">  noStroke();</span><br><span class="line">  fill(<span class="number">230</span>); </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i&lt; spectrum.length; i++)&#123;</span><br><span class="line">    <span class="keyword">var</span> x = map(i, <span class="number">0</span>, spectrum.length, <span class="number">0</span>, width/<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">var</span> h = -height/<span class="number">2</span> + map(spectrum[i], <span class="number">0</span>, <span class="number">255</span>, height/<span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">    rect(x, height/<span class="number">2</span>, width / spectrum.length, h);</span><br><span class="line">    rect(width-x, height/<span class="number">2</span>, width / spectrum.length, h);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// black note</span></span><br><span class="line">  drawNote(windowWidth/<span class="number">2</span><span class="number">-150</span>, windowHeight/<span class="number">2</span><span class="number">-60</span>, <span class="string">'E'</span>, <span class="string">'b'</span>, notePressed[<span class="number">0</span>]);</span><br><span class="line">  drawNote(windowWidth/<span class="number">2</span><span class="number">-90</span>, windowHeight/<span class="number">2</span><span class="number">-60</span>, <span class="string">'R'</span>, <span class="string">'b'</span>, notePressed[<span class="number">1</span>]);</span><br><span class="line">  drawNote(windowWidth/<span class="number">2</span>+<span class="number">30</span>, windowHeight/<span class="number">2</span><span class="number">-60</span>, <span class="string">'Y'</span>, <span class="string">'b'</span>, notePressed[<span class="number">2</span>]);</span><br><span class="line">  drawNote(windowWidth/<span class="number">2</span>+<span class="number">90</span>, windowHeight/<span class="number">2</span><span class="number">-60</span>, <span class="string">'U'</span>, <span class="string">'b'</span>, notePressed[<span class="number">3</span>]);</span><br><span class="line">  drawNote(windowWidth/<span class="number">2</span>+<span class="number">150</span>, windowHeight/<span class="number">2</span><span class="number">-60</span>, <span class="string">'I'</span>, <span class="string">'b'</span>, notePressed[<span class="number">4</span>]);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// white note</span></span><br><span class="line">  drawNote(windowWidth/<span class="number">2</span><span class="number">-180</span>, windowHeight/<span class="number">2</span>, <span class="string">'S'</span>, <span class="string">'w'</span>, notePressed[<span class="number">5</span>]);</span><br><span class="line">  drawNote(windowWidth/<span class="number">2</span><span class="number">-120</span>, windowHeight/<span class="number">2</span>, <span class="string">'D'</span>, <span class="string">'w'</span>, notePressed[<span class="number">6</span>]);</span><br><span class="line">  drawNote(windowWidth/<span class="number">2</span><span class="number">-60</span>, windowHeight/<span class="number">2</span>, <span class="string">'F'</span>, <span class="string">'w'</span>, notePressed[<span class="number">7</span>]);</span><br><span class="line">  drawNote(windowWidth/<span class="number">2</span>, windowHeight/<span class="number">2</span>, <span class="string">'G'</span>, <span class="string">'w'</span>, notePressed[<span class="number">8</span>]);</span><br><span class="line">  drawNote(windowWidth/<span class="number">2</span>+<span class="number">60</span>, windowHeight/<span class="number">2</span>, <span class="string">'H'</span>, <span class="string">'w'</span>, notePressed[<span class="number">9</span>]);</span><br><span class="line">  drawNote(windowWidth/<span class="number">2</span>+<span class="number">120</span>, windowHeight/<span class="number">2</span>, <span class="string">'J'</span>, <span class="string">'w'</span>, notePressed[<span class="number">10</span>]);</span><br><span class="line">  drawNote(windowWidth/<span class="number">2</span>+<span class="number">180</span>, windowHeight/<span class="number">2</span>, <span class="string">'K'</span>, <span class="string">'w'</span>, notePressed[<span class="number">11</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">playEnv</span>(<span class="params">f</span>)</span>&#123;</span><br><span class="line">  triOsc.freq(f);</span><br><span class="line">  env.play();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">drawNote</span>(<span class="params">xpos, ypos, key, color, pressed</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// black note</span></span><br><span class="line">  <span class="keyword">var</span> big = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> (pressed) &#123;</span><br><span class="line">    big = <span class="number">8</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// shadow</span></span><br><span class="line">  fill(<span class="number">100</span>);</span><br><span class="line">  strokeWeight(<span class="number">0</span>);</span><br><span class="line">  ellipse(xpos+<span class="number">3</span>, ypos+<span class="number">3</span>, <span class="number">50</span>+big, <span class="number">50</span>+big);</span><br><span class="line">  <span class="comment">// note</span></span><br><span class="line">  <span class="keyword">if</span> (color == <span class="string">'b'</span>) &#123;</span><br><span class="line">    fill(<span class="number">0</span>);</span><br><span class="line">    stroke(<span class="number">255</span>);  </span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    fill(<span class="number">255</span>);</span><br><span class="line">    stroke(<span class="number">0</span>);  </span><br><span class="line">  &#125;</span><br><span class="line">  strokeWeight(<span class="number">2</span>);</span><br><span class="line">  ellipse(xpos, ypos, <span class="number">50</span>+big, <span class="number">50</span>+big);</span><br><span class="line">  <span class="comment">// text</span></span><br><span class="line">  <span class="keyword">if</span> (color == <span class="string">'b'</span>) &#123;</span><br><span class="line">    fill(<span class="number">255</span>);  </span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    fill(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  textSize(<span class="number">40</span>);</span><br><span class="line">  <span class="keyword">if</span> (pressed) &#123;</span><br><span class="line">    textSize(<span class="number">44</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  text(key, xpos, ypos+<span class="number">17</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">keyPressed</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (keyCode) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">83</span>: <span class="comment">// S</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">115</span>: <span class="comment">// s</span></span><br><span class="line">    playEnv(<span class="number">261</span>); <span class="comment">// C note</span></span><br><span class="line">    notePressed[<span class="number">5</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">69</span>: <span class="comment">// E</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">101</span>: <span class="comment">// e</span></span><br><span class="line">    playEnv(<span class="number">277</span>); <span class="comment">// C# note</span></span><br><span class="line">    notePressed[<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">68</span>: <span class="comment">// D</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">110</span>: <span class="comment">// d</span></span><br><span class="line">    playEnv(<span class="number">293</span>); <span class="comment">// D note</span></span><br><span class="line">    notePressed[<span class="number">6</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">82</span>: <span class="comment">// R</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">114</span>: <span class="comment">// r</span></span><br><span class="line">    playEnv(<span class="number">311</span>); <span class="comment">// D# note</span></span><br><span class="line">    notePressed[<span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">70</span>: <span class="comment">// F</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">102</span>: <span class="comment">// f</span></span><br><span class="line">    playEnv(<span class="number">329</span>); <span class="comment">// E note</span></span><br><span class="line">    notePressed[<span class="number">7</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">71</span>: <span class="comment">// G</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">103</span>: <span class="comment">// g</span></span><br><span class="line">    playEnv(<span class="number">349</span>); <span class="comment">// F note</span></span><br><span class="line">    notePressed[<span class="number">8</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">89</span>: <span class="comment">// Y</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">121</span>: <span class="comment">// y</span></span><br><span class="line">    playEnv(<span class="number">369</span>); <span class="comment">// F# note</span></span><br><span class="line">    notePressed[<span class="number">2</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">72</span>: <span class="comment">// H</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">104</span>: <span class="comment">// h</span></span><br><span class="line">    playEnv(<span class="number">392</span>); <span class="comment">// G note</span></span><br><span class="line">    notePressed[<span class="number">9</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">85</span>: <span class="comment">// U</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">117</span>: <span class="comment">// u</span></span><br><span class="line">    playEnv(<span class="number">415</span>); <span class="comment">// G# note</span></span><br><span class="line">    notePressed[<span class="number">3</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">74</span>: <span class="comment">// J</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">106</span>: <span class="comment">// j</span></span><br><span class="line">    playEnv(<span class="number">440</span>); <span class="comment">// A note</span></span><br><span class="line">    notePressed[<span class="number">10</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">73</span>: <span class="comment">// U</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">105</span>: <span class="comment">// u</span></span><br><span class="line">    playEnv(<span class="number">466</span>); <span class="comment">// A# note</span></span><br><span class="line">    notePressed[<span class="number">4</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">75</span>: <span class="comment">// K</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">107</span>: <span class="comment">// k</span></span><br><span class="line">    playEnv(<span class="number">493</span>); <span class="comment">// B note</span></span><br><span class="line">    notePressed[<span class="number">11</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">keyReleased</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (keyCode) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">83</span>: <span class="comment">// S</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">115</span>: <span class="comment">// s</span></span><br><span class="line">    <span class="comment">// C note</span></span><br><span class="line">    notePressed[<span class="number">5</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">69</span>: <span class="comment">// E</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">101</span>: <span class="comment">// e</span></span><br><span class="line">    <span class="comment">// C# note</span></span><br><span class="line">    notePressed[<span class="number">0</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">68</span>: <span class="comment">// D</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">110</span>: <span class="comment">// d</span></span><br><span class="line">    <span class="comment">// D note</span></span><br><span class="line">    notePressed[<span class="number">6</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">82</span>: <span class="comment">// R</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">114</span>: <span class="comment">// r</span></span><br><span class="line">    <span class="comment">// D# note</span></span><br><span class="line">    notePressed[<span class="number">1</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">70</span>: <span class="comment">// F</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">102</span>: <span class="comment">// f</span></span><br><span class="line">    <span class="comment">// E note</span></span><br><span class="line">    notePressed[<span class="number">7</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">71</span>: <span class="comment">// G</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">103</span>: <span class="comment">// g</span></span><br><span class="line">    <span class="comment">// F note</span></span><br><span class="line">    notePressed[<span class="number">8</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">89</span>: <span class="comment">// Y</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">121</span>: <span class="comment">// y</span></span><br><span class="line">    <span class="comment">// F# note</span></span><br><span class="line">    notePressed[<span class="number">2</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">72</span>: <span class="comment">// H</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">104</span>: <span class="comment">// h</span></span><br><span class="line">    <span class="comment">// G note</span></span><br><span class="line">    notePressed[<span class="number">9</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">85</span>: <span class="comment">// U</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">117</span>: <span class="comment">// u</span></span><br><span class="line">    <span class="comment">// G# note</span></span><br><span class="line">    notePressed[<span class="number">3</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">74</span>: <span class="comment">// J</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">106</span>: <span class="comment">// j</span></span><br><span class="line">    <span class="comment">// A note</span></span><br><span class="line">    notePressed[<span class="number">10</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">73</span>: <span class="comment">// U</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">105</span>: <span class="comment">// u</span></span><br><span class="line">    <span class="comment">// A# note</span></span><br><span class="line">    notePressed[<span class="number">4</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">75</span>: <span class="comment">// K</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">107</span>: <span class="comment">// k</span></span><br><span class="line">    <span class="comment">// B note</span></span><br><span class="line">    notePressed[<span class="number">11</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/03/28/100sites-011-lifegame/" data-toggle="tooltip" data-placement="top" title="【100sites #011】LifeGame，生命遊戲模擬無限的可能性">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/03/23/100sites-009-flame/" data-toggle="tooltip" data-placement="top" title="【100sites #009】Flame，P5js酷炫小動畫">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Piano，用P5js的sound函式庫實作虛擬鋼琴</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Project" title="Project">Project</a>
+                        
+                          <a class="tag" href="/tags/#100sites" title="100sites">100sites</a>
+                        
+                          <a class="tag" href="/tags/#P5js" title="P5js">P5js</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">It Helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "eason-playground";
+    var disqus_identifier = "https://www.easonchang.com/2016/03/25/100sites-010-piano/";
+    var disqus_url = "https://www.easonchang.com/2016/03/25/100sites-010-piano/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/eason.blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/Kamigami55">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/easonchang101">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Eason Chang 2018 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://www.easonchang.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-73788598-2';
+    var _gaDomain = 'www.easonchang.com';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://www.easonchang.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

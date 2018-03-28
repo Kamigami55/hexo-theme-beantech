@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Let&#39;s make something awesome!">
+    <meta name="keyword"  content="Make, Code">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          【100sites #007】Pong，使用P5.js建構的復古遊戲 - Eason&#39;s Playground
+        
+    </title>
+
+    <link rel="canonical" href="https://www.easonchang.com/2016/03/19/100sites-007-pong/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('https://i.imgur.com/wznoZbr.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Project" title="Project">Project</a>
+                            
+                              <a class="tag" href="/tags/#100sites" title="100sites">100sites</a>
+                            
+                        </div>
+                        <h1>【100sites #007】Pong，使用P5.js建構的復古遊戲</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Eason Chang on
+                            2016-03-19
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Eason&#39;s Playground</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1><span id="pong使用p5js建構的復古遊戲">Pong，使用P5.js建構的復古遊戲</span></h1>
+<p><a href="http://kamigami55.github.io/100sites/007_Pong/" target="_blank" rel="noopener">點我遊玩</a></p>
+<p><a href="https://github.com/Kamigami55/100sites/tree/gh-pages/007_Pong" target="_blank" rel="noopener">我想看看程式碼</a></p>
+<a id="more"></a>
+<p><img src="https://i.imgur.com/wznoZbr.jpg" alt="螢幕快照 2016-03-20 上午1.23.09.png"></p>
+<blockquote>
+<p>一句話摘要：使用P5.js這個JavaScript繪圖框架，重建Pong這個復古遊戲，並重新開動100sites專案</p>
+</blockquote>
+<p>因為一直很忙加上懶惰加上拖延，已經快一個月沒有持續我的100sites專案了，然現在我終於忙完了，是時候該重拾行囊，繼續走完這段成為專業全端工程師的修行之路了！</p>
+<p>這次的#007成品是Pong，一個很經典遊戲，左右兩位玩家操縱著各自的棒棒將球反彈給對方，漏球最多的一方輸。</p>
+<p>前些日子在SITCON年有講者分享<a href="http://p5js.org" target="_blank" rel="noopener">P5.js</a>這個框架，他算是我在#006 Snack裡面使用的<a href="http://processingjs.org" target="_blank" rel="noopener">Processing.js</a>的兄弟，Processing.js使用Processing語言，但P5.js使用JavaScript來達到相同的功能，對於現在JS大熱門的趨勢來看，P5.js也是一個很值得學起來的框架之一呀！</p>
+<p>以下附上本次的程式碼：</p>
+<figure class="highlight html"><figcaption><span>index.html</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Pong!<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.23/p5.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"pong.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"> <span class="selector-tag">body</span>&#123;<span class="attribute">padding</span>:<span class="number">0</span>; <span class="attribute">margin</span>:<span class="number">0</span>; <span class="attribute">overflow</span>:hidden;&#125; </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>pong.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> BAR_MOVE_SPEED = <span class="number">15</span>;</span><br><span class="line"><span class="keyword">var</span> BALL_SIZE = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> BALL_SPEED = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> MAP_WIDTH = <span class="number">800</span>;</span><br><span class="line"><span class="keyword">var</span> MAP_HEIGHT = <span class="number">500</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> BAR_WIDTH = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> BAR_HEIGHT = <span class="number">120</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p1_y;</span><br><span class="line"><span class="keyword">var</span> p2_y;</span><br><span class="line"><span class="keyword">var</span> p1_score;</span><br><span class="line"><span class="keyword">var</span> p2_score;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ball_x;</span><br><span class="line"><span class="keyword">var</span> ball_y;</span><br><span class="line"><span class="keyword">var</span> ball_velocity_x;</span><br><span class="line"><span class="keyword">var</span> ball_velocity_y;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> gamePaused = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> gameStarted = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setup</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  MAP_WIDTH = windowWidth;</span><br><span class="line">  MAP_HEIGHT = windowHeight;</span><br><span class="line">  createCanvas(MAP_WIDTH, MAP_HEIGHT);</span><br><span class="line">  </span><br><span class="line">  ellipseMode(CENTER);</span><br><span class="line">  rectMode(CENTER);</span><br><span class="line"></span><br><span class="line">  p1_y = MAP_HEIGHT/<span class="number">2</span>;</span><br><span class="line">  p2_y = MAP_HEIGHT/<span class="number">2</span>;</span><br><span class="line">  p1_score = <span class="number">0</span>;</span><br><span class="line">  p2_score = <span class="number">0</span>;</span><br><span class="line">  ball_x = MAP_WIDTH/<span class="number">2</span>;</span><br><span class="line">  ball_y = MAP_HEIGHT/<span class="number">2</span>;</span><br><span class="line">  ball_velocity_x = BALL_SPEED;</span><br><span class="line">  ball_velocity_y = BALL_SPEED;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(!gamePaused &amp;&amp; gameStarted) &#123;</span><br><span class="line">    pleyerControl();</span><br><span class="line">    ballMove();</span><br><span class="line">    ballCollide();</span><br><span class="line">    checkBallOutside();</span><br><span class="line">  &#125;</span><br><span class="line">  displayGame();</span><br><span class="line">  displayGUI();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">keyPressed</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(keyCode === ENTER) &#123;</span><br><span class="line">    <span class="keyword">if</span>(!gameStarted) &#123;</span><br><span class="line">      gameStarted = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      gamePaused = !gamePaused;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pleyerControl</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(keyIsDown(<span class="number">87</span>) || keyIsDown(<span class="number">119</span>)) &#123; <span class="comment">// W</span></span><br><span class="line">    <span class="keyword">if</span>(p1_y-BAR_HEIGHT/<span class="number">2</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      p1_y -= BAR_MOVE_SPEED;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (keyIsDown(<span class="number">83</span>) || keyIsDown(<span class="number">115</span>)) &#123; <span class="comment">// S</span></span><br><span class="line">    <span class="keyword">if</span>(p1_y+BAR_HEIGHT/<span class="number">2</span> &lt; MAP_HEIGHT) &#123;</span><br><span class="line">      p1_y += BAR_MOVE_SPEED;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(keyIsDown(UP_ARROW)) &#123; <span class="comment">// UP</span></span><br><span class="line">    <span class="keyword">if</span>(p2_y-BAR_HEIGHT/<span class="number">2</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      p2_y -= BAR_MOVE_SPEED;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (keyIsDown(DOWN_ARROW)) &#123; <span class="comment">// DOWN</span></span><br><span class="line">    <span class="keyword">if</span>(p2_y+BAR_HEIGHT/<span class="number">2</span> &lt; MAP_HEIGHT) &#123;</span><br><span class="line">      p2_y += BAR_MOVE_SPEED;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ballMove</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  ball_x += ball_velocity_x;</span><br><span class="line">  ball_y += ball_velocity_y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ballCollide</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(ball_y+BALL_SIZE/<span class="number">2</span> &gt; MAP_HEIGHT || ball_y-BALL_SIZE/<span class="number">2</span> &lt; <span class="number">0</span>) &#123; <span class="comment">// collide with upper and lower walls</span></span><br><span class="line">    ball_velocity_y = -ball_velocity_y;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(ball_x &lt;= <span class="number">30</span>+BAR_WIDTH/<span class="number">2</span> <span class="comment">// collide with player1</span></span><br><span class="line">    &amp;&amp; ball_x &gt;= <span class="number">30</span>-BAR_WIDTH/<span class="number">2</span></span><br><span class="line">    &amp;&amp; ball_y &gt;= p1_y-BAR_HEIGHT/<span class="number">2</span> </span><br><span class="line">    &amp;&amp; ball_y &lt;= p1_y+BAR_HEIGHT/<span class="number">2</span>) &#123; </span><br><span class="line">      ball_velocity_x = -ball_velocity_x;</span><br><span class="line">       <span class="comment">// slightly change ball y speed according to the position ball hit on the bar</span></span><br><span class="line">      ball_velocity_y += (ball_y-p1_y)*<span class="number">10</span>/(BAR_HEIGHT/<span class="number">2</span>);</span><br><span class="line">      <span class="keyword">if</span>(ball_velocity_y &gt; BALL_SPEED) <span class="comment">// strict the ball speed not exceed max speed</span></span><br><span class="line">        ball_velocity_y = BALL_SPEED;</span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span>(ball_velocity_y &lt; -BALL_SPEED)</span><br><span class="line">        ball_velocity_y = -BALL_SPEED;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(ball_x &gt;= MAP_WIDTH<span class="number">-30</span>-BAR_WIDTH/<span class="number">2</span> <span class="comment">// collide with player2</span></span><br><span class="line">    &amp;&amp; ball_x &lt;= MAP_WIDTH<span class="number">-30</span>+BAR_WIDTH/<span class="number">2</span></span><br><span class="line">    &amp;&amp; ball_y &gt;= p2_y-BAR_HEIGHT/<span class="number">2</span> </span><br><span class="line">    &amp;&amp; ball_y &lt;= p2_y+BAR_HEIGHT/<span class="number">2</span>) &#123; </span><br><span class="line">      ball_velocity_x = -ball_velocity_x;</span><br><span class="line">       <span class="comment">// slightly change ball y speed according to the position ball hit on the bar</span></span><br><span class="line">      ball_velocity_y += (ball_y-p2_y)*<span class="number">10</span>/(BAR_HEIGHT/<span class="number">2</span>);</span><br><span class="line">      <span class="keyword">if</span>(ball_velocity_y &gt; BALL_SPEED) <span class="comment">// strict the ball speed not exceed max speed</span></span><br><span class="line">        ball_velocity_y = BALL_SPEED;</span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span>(ball_velocity_y &lt; -BALL_SPEED)</span><br><span class="line">        ball_velocity_y = -BALL_SPEED;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkBallOutside</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(ball_x &gt; MAP_WIDTH) &#123;</span><br><span class="line">    ball_x = MAP_WIDTH/<span class="number">2</span>;</span><br><span class="line">    ball_y = MAP_HEIGHT/<span class="number">2</span>;</span><br><span class="line">    ++p1_score;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>(ball_x &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    ball_x = MAP_WIDTH/<span class="number">2</span>;</span><br><span class="line">    ball_y = MAP_HEIGHT/<span class="number">2</span>;</span><br><span class="line">    ++p2_score;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">displayGame</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  background(<span class="number">0</span>);</span><br><span class="line">  fill(<span class="number">255</span>); <span class="comment">// white</span></span><br><span class="line">  rect(<span class="number">30</span>, p1_y, BAR_WIDTH, BAR_HEIGHT); <span class="comment">// player1 bar</span></span><br><span class="line">  rect(MAP_WIDTH<span class="number">-30</span>, p2_y, BAR_WIDTH, BAR_HEIGHT); <span class="comment">// player2 bar</span></span><br><span class="line">  fill(<span class="number">0</span>,<span class="number">255</span>,<span class="number">255</span>);</span><br><span class="line">  ellipse(ball_x, ball_y, BALL_SIZE, BALL_SIZE); <span class="comment">// ball</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">displayGUI</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span>(gamePaused) &#123;</span><br><span class="line">    textSize(<span class="number">100</span>);</span><br><span class="line">    fill(<span class="number">255</span>);</span><br><span class="line">    textAlign(CENTER);</span><br><span class="line">    text(<span class="string">"PAUSED"</span>, MAP_WIDTH/<span class="number">2</span>, MAP_HEIGHT/<span class="number">2</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(!gameStarted) &#123;</span><br><span class="line">    textAlign(CENTER);</span><br><span class="line">    textSize(<span class="number">100</span>);</span><br><span class="line">    fill(<span class="number">0</span>, <span class="number">255</span>, <span class="number">255</span>);</span><br><span class="line">    text(<span class="string">"Pong!"</span>, MAP_WIDTH/<span class="number">2</span>, <span class="number">150</span>);</span><br><span class="line">    fill(<span class="number">255</span>);</span><br><span class="line">    textSize(<span class="number">80</span>);</span><br><span class="line">    text(<span class="string">"Press ENTER to Start"</span>, MAP_WIDTH/<span class="number">2</span>, MAP_HEIGHT/<span class="number">2</span>);</span><br><span class="line">    textSize(<span class="number">40</span>);</span><br><span class="line">    text(<span class="string">"Left player: W, S to move\nRight player: UP, DOWN to move\nPress ENTER to pause"</span>, MAP_WIDTH/<span class="number">2</span>, MAP_HEIGHT/<span class="number">2</span>+<span class="number">150</span>); </span><br><span class="line">  &#125;</span><br><span class="line">  textSize(<span class="number">30</span>);</span><br><span class="line">  textAlign(LEFT);</span><br><span class="line">  text(p1_score, <span class="number">30</span>, <span class="number">30</span>);</span><br><span class="line">  textAlign(RIGHT);</span><br><span class="line">  text(p2_score, MAP_WIDTH<span class="number">-30</span>, <span class="number">30</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2016/03/20/100sites-008-showcase/" data-toggle="tooltip" data-placement="top" title="【100sites #008】Showcase，單頁式網站設計展示我的作品集">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/03/18/verilog-on-macosx/" data-toggle="tooltip" data-placement="top" title="如何在Mac OS X上安裝Verilog環境">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Pong，使用P5.js建構的復古遊戲</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Project" title="Project">Project</a>
+                        
+                          <a class="tag" href="/tags/#100sites" title="100sites">100sites</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">It Helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "eason-playground";
+    var disqus_identifier = "https://www.easonchang.com/2016/03/19/100sites-007-pong/";
+    var disqus_url = "https://www.easonchang.com/2016/03/19/100sites-007-pong/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/eason.blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/Kamigami55">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/easonchang101">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Eason Chang 2018 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://www.easonchang.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-73788598-2';
+    var _gaDomain = 'www.easonchang.com';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://www.easonchang.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
