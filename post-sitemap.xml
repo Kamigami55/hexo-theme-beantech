@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>https://www.easonchang.com/2018/03/29/test/</loc>
+        <lastmod>2018-03-28T21:29:16.041Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://www.easonchang.com/2017/03/18/hexo-theme-beantech/</loc>
         <lastmod>2018-03-28T20:49:39.179Z</lastmod>
         <changefreq>weekly</changefreq>
