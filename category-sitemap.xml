@@ -7,8 +7,50 @@
     </url>
 
     <url>
+        <loc>https://www.easonchang.com/categories/chatbot/</loc>
+        <lastmod>2018-03-28T23:58:36.810Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.easonchang.com/categories/arduino/</loc>
+        <lastmod>2018-03-28T23:58:47.201Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.easonchang.com/categories/rails/</loc>
+        <lastmod>2018-03-29T00:00:21.577Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.easonchang.com/categories/dailyui/</loc>
+        <lastmod>2018-03-29T00:01:16.731Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.easonchang.com/categories/environment/</loc>
+        <lastmod>2018-03-29T00:03:08.939Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.easonchang.com/categories/100sites/</loc>
+        <lastmod>2018-03-29T00:05:40.645Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://www.easonchang.com/categories/reading/</loc>
-        <lastmod>2018-03-28T23:43:52.467Z</lastmod>
+        <lastmod>2018-03-29T00:05:53.155Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
