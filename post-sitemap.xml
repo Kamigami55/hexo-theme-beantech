@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>https://www.easonchang.com/2017/03/10/slack-bot-with-botkit/</loc>
+        <lastmod>2018-03-29T18:31:09.059Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://www.easonchang.com/2015/10/27/lever-reading/</loc>
         <lastmod>2018-03-29T00:05:53.155Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -201,14 +209,6 @@
     <url>
         <loc>https://www.easonchang.com/2017/03/05/bluetooth-keyboard/</loc>
         <lastmod>2018-03-28T23:58:47.201Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://www.easonchang.com/2017/03/10/slack-bot-with-botkit/</loc>
-        <lastmod>2018-03-28T23:58:36.810Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

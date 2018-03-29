@@ -2,27 +2,6 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://www.easonchang.com/tags/botkit/</loc>
-        <lastmod>2018-03-28T23:58:36.810Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://www.easonchang.com/tags/chatbot/</loc>
-        <lastmod>2018-03-28T23:58:36.810Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://www.easonchang.com/tags/slack/</loc>
-        <lastmod>2018-03-28T23:58:36.810Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://www.easonchang.com/tags/appinventor/</loc>
         <lastmod>2018-03-28T23:58:47.201Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -200,6 +179,27 @@
     <url>
         <loc>https://www.easonchang.com/tags/reading/</loc>
         <lastmod>2018-03-29T00:05:53.155Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.easonchang.com/tags/botkit/</loc>
+        <lastmod>2018-03-29T18:31:09.059Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.easonchang.com/tags/chatbot/</loc>
+        <lastmod>2018-03-29T18:31:09.059Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://www.easonchang.com/tags/slack/</loc>
+        <lastmod>2018-03-29T18:31:09.059Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
